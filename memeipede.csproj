@@ -7,8 +7,8 @@
     <ProjectGuid>{96BA0F79-E278-4FD5-891D-F8559DDB8A6B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Centipede</RootNamespace>
-    <AssemblyName>Centipede</AssemblyName>
+    <RootNamespace>memeipede</RootNamespace>
+    <AssemblyName>memeipede</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

@@ -2,7 +2,7 @@
 
 namespace Memeipede
 {
-    [BepInPlugin("xerillic.memeipede", "Memeipede", "0.1.0")] // (GUID, mod name, mod version)
+    [BepInPlugin("xerillic.memeipede", "Memeipede", "1.0.0")] // (GUID, mod name, mod version)
     public class Memeipede : BaseUnityPlugin
     {
         public void OnEnable()
