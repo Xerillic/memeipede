@@ -7,40 +7,53 @@ namespace Memeipede
     {
         public void OnEnable()
         {
+            // Hooks
             On.Centipede.Act += Centipede_Act;
             On.Centipede.SpitOutOfShortCut += Centipede_SpitOutOfShortCut;
         }
-        private void Centipede_SpitOutOfShortCut(On.Centipede.orig_SpitOutOfShortCut orig, Centipede self, RWCustom.IntVector2 pos, Room newRoom, bool spitOutAllSticks)
+        private void Centipede_SpitOutOfShortCut(
+            On.Centipede.orig_SpitOutOfShortCut orig,
+            Centipede self,
+            RWCustom.IntVector2 pos,
+            Room newRoom,
+            bool spitOutAllSticks)
         {
             orig(self, pos, newRoom, spitOutAllSticks);
-            if (behave == CentipedeAI.Behavior.Hunt)
-            {
-                self.room.PlayCustomChunkSound("memeipede", self.mainBodyChunk, 1f, 1f);
-            }
+            PlaySound(behave);
         }
         private void Centipede_Act(On.Centipede.orig_Act orig, Centipede self)
         {
+            if (centi != self) { centi = self; }
             orig(self);
-            if (behave != self.AI.behavior)
+
+            if (centi.Red)
             {
-                behave = self.AI.behavior;
-                if (behave == CentipedeAI.Behavior.Hunt) 
+                if (behave != centi.AI.behavior)
                 {
-                    self.room.PlayCustomSound("memeipede", self.mainBodyChunk.pos, 1f, 1f);
-                }
-                else
-                {
-                    for (int i = 0; i < self.room.game.cameras[0].virtualMicrophone.soundObjects.Count; i++)
+                    behave = centi.AI.behavior;
+
+                    for (int i = 0; i < centi.room.game.cameras[0].virtualMicrophone.soundObjects.Count; i++)
                     {
-                        if (self.room.game.cameras[0].virtualMicrophone.soundObjects[i].soundData.soundName == "memeipede")
+                        if (centi.room.game.cameras[0].virtualMicrophone.soundObjects[i].soundData.soundName.Contains("memeipede"))
                         {
-                            self.room.game.cameras[0].virtualMicrophone.soundObjects[i].Destroy();
+                            centi.room.game.cameras[0].virtualMicrophone.soundObjects[i].Destroy();
                         }
                     }
+                    PlaySound(behave);
                 }
             }
         }
 
+        private void PlaySound(CentipedeAI.Behavior behavior)
+        {
+            // Might add more
+            if (behavior == CentipedeAI.Behavior.Hunt)
+            {
+                centi.room.PlayCustomChunkSound("memeipede_hunt", centi.mainBodyChunk, 1f, 1f);
+            }
+        }
+
         public CentipedeAI.Behavior behave;
+        public Centipede centi;
     }
 }
