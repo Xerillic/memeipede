@@ -40,7 +40,7 @@ namespace Memeipede
             currentsound?.Destroy();
             if (behavior == CentipedeAI.Behavior.Hunt)
             {
-                centi.room.PlayCustomChunkSound("memeipede_hunt", centi.mainBodyChunk, 1f, 1f);
+                centi.room.PlayCustomChunkSound("memeipede_hunt", centi.mainBodyChunk, .7f, 1f);
             }
 
             // More behaviors later maybe
